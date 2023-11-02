@@ -181,6 +181,10 @@ export async function* readBranches(
 
       const login = user ? user.login : null;
       const organization = user?.organization?.id;
+      if(login == null) {
+        console.log(`Error: Can't mark branch ${name} as stale because the login/user is null`)
+        continue
+      }
       yield {
         date: Date.parse(date),
         branchName: name,

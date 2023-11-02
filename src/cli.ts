@@ -11,17 +11,17 @@ let octokit = new Octokit({
 const timer = setTimeout(() => {}, 120000);
 removeStaleBranches(octokit, {
   isDryRun: false,
-  daysBeforeBranchStale: 60,
-  daysBeforeBranchDelete: 7,
+  daysBeforeBranchStale: 365,
+  daysBeforeBranchDelete: 30,
   staleCommentMessage:
-    "{author} Your branch [{branchName}]({branchUrl}) hasn't been updated in the last 60 days and is marked as stale. It will be removed in a week.\r\nIf you want to keep this branch around, delete this comment or add new commits to this branch.",
+    "@{author} Your branch [{branchName}]({branchUrl}) hasn't been updated in the last 365 days and is marked as stale. Please have a look if it is still needed.",
   protectedBranchesRegex: "^(main|master)$",
-  operationsPerRun: 10,
+  operationsPerRun: 500,
   githubToken: process.env.GITHUB_TOKEN || "",
   exemptProtectedBranches: true,
   repo: {
-    owner: "github",
-    repo: "octocat",
+    owner: "sipgate",
+    repo: "sipgate-deployment",
   },
 })
   .then(() => clearTimeout(timer))
